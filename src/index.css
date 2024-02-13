@@ -138,20 +138,20 @@ hr.RampBreak--l {
   cursor: pointer;
 }
 
-.RampInputCheckbox--label-disabled {
+.RampInputCheckbox--input {
+  display: none;
+}
+
+.RampInputCheckbox--input:disabled + .RampInputCheckbox--label-disabled {
   cursor: progress;
 }
 
-.RampInputCheckbox--label-checked:before {
+.RampInputCheckbox--input:checked + .RampInputCheckbox--label-checked:before {
   content: " ";
   width: 100%;
   height: 100%;
   border-color: var(--color-constructive);
   background-color: var(--color-constructive);
-}
-
-.RampInputCheckbox--input {
-  display: none;
 }
 
 .RampButton {
