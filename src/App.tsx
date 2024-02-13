@@ -62,6 +62,7 @@ export function App() {
           })}
           onChange={async (newValue) => {
             if (newValue === null) {
+              await loadAllTransactions()
               return
             }
 

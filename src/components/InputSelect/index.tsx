@@ -2,6 +2,7 @@ import Downshift from "downshift"
 import { useCallback, useState } from "react"
 import classNames from "classnames"
 import { InputSelectOnChange, InputSelectProps } from "./types"
+import { Employee } from "src/utils/types"
 
 export function InputSelect<TItem>({
   label,
@@ -17,6 +18,11 @@ export function InputSelect<TItem>({
   const onChange = useCallback<InputSelectOnChange<TItem>>(
     (selectedItem) => {
       if (selectedItem === null) {
+        return
+      }
+
+      if ((selectedItem as Employee).id === "") {
+        consumerOnChange(null)
         return
       }
 
