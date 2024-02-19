@@ -1,10 +1,11 @@
 import { useCallback, useState } from "react"
-import { RequestByEmployeeParams, Transaction } from "../utils/types"
+import { RequestByEmployeeParams, SetTransactionApprovalParams, Transaction } from "../utils/types"
 import { TransactionsByEmployeeResult } from "./types"
 import { useCustomFetch } from "./useCustomFetch"
+import { SetTransactionApprovalFunction } from "src/components/Transactions/types"
 
 export function useTransactionsByEmployee(): TransactionsByEmployeeResult {
-  const { fetchWithCache, loading } = useCustomFetch()
+  const { fetchWithCache, fetchWithoutCache, loading } = useCustomFetch()
   const [transactionsByEmployee, setTransactionsByEmployee] = useState<Transaction[] | null>(null)
 
   const fetchById = useCallback(
@@ -21,9 +22,27 @@ export function useTransactionsByEmployee(): TransactionsByEmployeeResult {
     [fetchWithCache]
   )
 
+  const setTransactionApproval = useCallback<SetTransactionApprovalFunction>(
+    async ({ transactionId, newValue }) => {
+      console.log(transactionsByEmployee)
+
+      const data = await fetchWithoutCache<Transaction[] | null, SetTransactionApprovalParams>(
+        "setTransactionApproval",
+        {
+          transactionId,
+          value: newValue,
+        }
+      )
+
+      console.log(data)
+      setTransactionsByEmployee(data)
+    },
+    [fetchWithoutCache]
+  )
+
   const invalidateData = useCallback(() => {
     setTransactionsByEmployee(null)
   }, [])
 
-  return { data: transactionsByEmployee, loading, fetchById, invalidateData }
+  return { data: transactionsByEmployee, loading, fetchById, setTransactionApproval, invalidateData }
 }

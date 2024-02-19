@@ -23,13 +23,14 @@ export function InputSelect<TItem>({
 
       if ((selectedItem as Employee).id === "") {
         consumerOnChange(null)
+        setSelectedValue(defaultValue ?? null)
         return
       }
 
       consumerOnChange(selectedItem)
       setSelectedValue(selectedItem)
     },
-    [consumerOnChange]
+    [consumerOnChange, defaultValue]
   )
 
   return (

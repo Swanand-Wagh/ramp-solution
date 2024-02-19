@@ -69,7 +69,10 @@ export function App() {
         <div className="RampBreak--l" />
 
         <div className="RampGrid">
-          <Transactions transactions={transactions} />
+          <Transactions
+            transactions={transactions}
+            setTransactionApproval={transactionsByEmployeeUtils.setTransactionApproval}
+          />
 
           {transactions !== null &&
             paginatedTransactions !== null &&

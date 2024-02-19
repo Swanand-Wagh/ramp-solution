@@ -1,3 +1,4 @@
+import { SetTransactionApprovalFunction } from "src/components/Transactions/types"
 import { Employee, PaginatedResponse, Transaction } from "../utils/types"
 
 type UseTypeBaseResult<TValue> = {
@@ -18,4 +19,6 @@ export type EmployeeResult = UseTypeBaseAllResult<Employee[] | null>
 
 export type PaginatedTransactionsResult = UseTypeBaseAllResult<PaginatedResponse<Transaction[]> | null>
 
-export type TransactionsByEmployeeResult = UseTypeBaseByIdResult<Transaction[] | null>
+export type TransactionsByEmployeeResult = UseTypeBaseByIdResult<Transaction[] | null> & {
+  setTransactionApproval: SetTransactionApprovalFunction
+}
